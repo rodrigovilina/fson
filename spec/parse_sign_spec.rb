@@ -7,19 +7,19 @@ RSpec.describe FSON do
     it 'does not parse an empty string' do
       str = ''
       result = FSON.parse_sign(str)
-      expect(result).to eq([nil, ''])
+      expect(result).to eq(Maybe.none)
     end
 
     it 'parses a plus sign' do
       str = '+'
       result = FSON.parse_sign(str)
-      expect(result).to eq([FSON::Plus.new, ''])
+      expect(result).to eq(Maybe.return([FSON::Plus.new, '']))
     end
 
     it 'parses a minus sign' do
       str = '-'
       result = FSON.parse_sign(str)
-      expect(result).to eq([FSON::Minus.new, ''])
+      expect(result).to eq(Maybe.return([FSON::Minus.new, '']))
     end
   end
 end
