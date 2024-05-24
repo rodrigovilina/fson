@@ -3,8 +3,8 @@
 require 'sorbet-runtime'
 require 'zeitwerk'
 loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
-loader.inflector.inflect "fson" => "FSON"
-loader.setup 
+loader.inflector.inflect 'fson' => 'FSON'
+loader.setup
 
 module FSON
   def self.threequals_parser(comp, klass)
@@ -35,7 +35,7 @@ module FSON
   def self.parse_exponent(str)
     Exponent.parse(str)
   end
-  
+
   def self.parse_hex(str)
     Hex.parse(str)
   end
@@ -49,4 +49,4 @@ module FSON
   end
 end
 
-loader.eager_load 
+loader.eager_load

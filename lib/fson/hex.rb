@@ -18,7 +18,7 @@ module FSON
 
     def ==(other)
       self.class == other.class &&
-        self.char.downcase == other.char.downcase
+        char.downcase == other.char.downcase
     end
   end
 end

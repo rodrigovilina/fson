@@ -12,7 +12,7 @@ module FSON
     end
 
     class Some < self
-      def initialize(char)
+      def initialize(char) # rubocop:disable Lint/MissingSuper
         @char = char
       end
 
@@ -20,7 +20,7 @@ module FSON
 
       def ==(other)
         self.class == other.class &&
-          self.char == other.char
+          char == other.char
       end
     end
 

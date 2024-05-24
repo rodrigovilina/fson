@@ -15,7 +15,7 @@ RSpec.describe FSON::Digit do
       string = ('0'..'9').to_a.sample
       result = described_class.parse(string)
 
-      expect(result).to eq(Maybe.return(FSON::Result.new(FSON::Digit.new(string), '')))
+      expect(result).to eq(Maybe.return(FSON::Result.new(described_class.new(string), '')))
     end
 
     it 'parses only one digit' do
@@ -23,7 +23,7 @@ RSpec.describe FSON::Digit do
       string = "#{digit}#{digit}"
       result = described_class.parse(string)
 
-      expect(result).to eq(Maybe.return(FSON::Result.new(FSON::Digit.new(digit), digit)))
+      expect(result).to eq(Maybe.return(FSON::Result.new(described_class.new(digit), digit)))
     end
   end
 end

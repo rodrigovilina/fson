@@ -4,7 +4,7 @@ module FSON
   class Exponent
     def self.parse(string)
       case string[0]
-      when 'E', 'e' then
+      when 'E', 'e'
         sign = Sign.parse(string[1..]).value!
         maybe_digits = Digits.parse(sign.rest)
 
@@ -23,7 +23,7 @@ module FSON
     attr_reader :sign, :digits
 
     def ==(other)
-      self.class == other.class && self.sign == other.sign && self.digits == other.digits
+      self.class == other.class && sign == other.sign && digits == other.digits
     end
   end
 end

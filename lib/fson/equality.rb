@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FSON
   module Equality
     def ==(other)

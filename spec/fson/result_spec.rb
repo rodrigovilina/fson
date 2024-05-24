@@ -4,7 +4,7 @@ require_relative '../../lib/fson'
 
 RSpec.describe FSON::Result do
   describe '#initialize' do
-    it 'takes a token and a string' do
+    it 'takes a token and a string', :aggregate_failures do
       token = FSON::Sign::None.new
       string = ''
       result = described_class.new(token, string)

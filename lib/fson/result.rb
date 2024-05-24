@@ -10,9 +10,9 @@ module FSON
     attr_reader :token, :rest
 
     def ==(other)
-      self.class == other.class && 
-        self.token == other.token &&
-        self.rest == other.rest
+      self.class == other.class &&
+        token == other.token &&
+        rest == other.rest
     end
   end
 end

@@ -3,17 +3,19 @@
 module FSON
   class Fraction
     def self.parse(string)
-      if string[0] == "."
+      if string[0] == '.'
         digits = Digits.parse(string[1..])
 
-        if digits.none?
-          Maybe.return Result.new(None.new, string)
-        else
-          Maybe.return Result.new(Some.new(digits.value!.token), digits.value!.rest)
-        end
+        parse_digits(digits, string)
       else
         Maybe.return Result.new(None.new, string)
       end
+    end
+
+    def self.parse_digits(maybe_digits, string)
+      maybe_digits
+        .map { |digits| Result.new(Some.new(digits.token), digits.rest) }
+        .map_none { Result.new(None.new, string) }
     end
 
     class None < self
@@ -23,7 +25,7 @@ module FSON
     end
 
     class Some < self
-      def initialize(digits)
+      def initialize(digits) # rubocop:disable Lint/MissingSuper
         @digits = digits
       end
 
@@ -31,7 +33,7 @@ module FSON
 
       def ==(other)
         self.class == other.class &&
-          self.digits == other.digits
+          digits == other.digits
       end
     end
   end

@@ -13,14 +13,14 @@ RSpec.describe FSON::OneNine do
     it 'parses digits one to nine' do
       str = (1..9).to_a.sample.to_s
       result = described_class.parse(str)
-      expect(result).to eq(Maybe.return(FSON::Result.new(FSON::OneNine.new(str), '')))
+      expect(result).to eq(Maybe.return(FSON::Result.new(described_class.new(str), '')))
     end
 
     it 'parses only one digits one to nine' do
       digit = (1..9).to_a.sample
       str = "#{digit}#{digit}"
       result = described_class.parse(str)
-      expect(result).to eq(Maybe.return(FSON::Result.new(FSON::OneNine.new(digit.to_s), digit.to_s)))
+      expect(result).to eq(Maybe.return(FSON::Result.new(described_class.new(digit.to_s), digit.to_s)))
     end
   end
 end

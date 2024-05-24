@@ -20,3 +20,9 @@ Style/Documentation:
 
 Style/EmptyCaseCondition:
   Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/LambdaCall:
+  Enabled: false

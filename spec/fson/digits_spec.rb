@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 require_relative '../../lib/fson'
 
 RSpec.describe FSON::Digits do
@@ -15,7 +15,7 @@ RSpec.describe FSON::Digits do
       result = described_class.parse(string)
       digit = FSON::Digit.new(string)
 
-      expect(result).to eq(Maybe.return(FSON::Result.new(FSON::Digits.new([digit]), '')))
+      expect(result).to eq(Maybe.return(FSON::Result.new(described_class.new([digit]), '')))
     end
   end
 end

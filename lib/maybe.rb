@@ -90,15 +90,23 @@ class Maybe
   # Mapping to other values
 
   def map
-    if @value
+    if some?
       Maybe.from_block { yield(@value) }
     else
       self
     end
   end
 
+  def map_none(&block)
+    if some?
+      self
+    else
+      Maybe.from_block(&block)
+    end
+  end
+
   def bind
-    if @value
+    if some?
       yield(@value)
     else
       self

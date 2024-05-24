@@ -4,10 +4,10 @@ module FSON
   class Sign
     def self.parse(string)
       Plus.parse(string)
-        .bind_none { Minus.parse(string) }
-        .bind_none { None.parse(string) }
+          .bind_none { Minus.parse(string) }
+          .bind_none { None.parse(string) }
     end
-        
+
     def ==(other)
       self.class == other.class
     end

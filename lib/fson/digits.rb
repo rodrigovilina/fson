@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FSON
   class Digits
     def self.parse(string)
@@ -23,7 +25,7 @@ module FSON
     attr_reader :digits
 
     def ==(other)
-      self.class == other.class && self.digits == other.digits
+      self.class == other.class && digits == other.digits
     end
   end
 end
