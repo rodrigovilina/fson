@@ -104,4 +104,12 @@ class Maybe
       self
     end
   end
+
+  def bind_none
+    if some?
+      self
+    else
+      yield
+    end
+  end
 end
