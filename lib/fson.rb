@@ -10,7 +10,7 @@ module FSON
   def self.threequals_parser(comp, klass)
     ->(string) {
       case string[0]
-      when comp then Maybe.return([klass.new, string[1..]])
+      when comp then Maybe.return(Result.new(klass.new, string[1..]))
       else Maybe.none
       end
     }
@@ -34,6 +34,18 @@ module FSON
 
   def self.parse_exponent(str)
     Exponent.parse(str)
+  end
+  
+  def self.parse_hex(str)
+    Hex.parse(str)
+  end
+
+  def self.parse_fraction(str)
+    Fraction.parse(str)
+  end
+
+  def self.parse_whitespace(str)
+    Whitespace.parse(str)
   end
 end
 

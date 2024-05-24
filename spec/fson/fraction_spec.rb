@@ -21,7 +21,7 @@ RSpec.describe FSON::Fraction do
     it 'parses the fraction' do
       string = ".1"
       result = described_class.parse(string)
-      digits = FSON::Digits.parse(string[1..]).value!.fetch(0)
+      digits = FSON::Digits.parse(string[1..]).value!.token
 
       token = described_class::Some.new(digits)
 

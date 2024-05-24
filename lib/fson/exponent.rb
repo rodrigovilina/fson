@@ -6,10 +6,10 @@ module FSON
       case string[0]
       when 'E', 'e' then
         sign = Sign.parse(string[1..]).value!
-        maybe_digits = Digits.parse(sign.fetch(1))
+        maybe_digits = Digits.parse(sign.rest)
 
         maybe_digits.map do |digits|
-          [FSON::Exponent.new(sign.fetch(0), digits.fetch(0)), digits.fetch(1)]
+          Result.new(FSON::Exponent.new(sign.token, digits.token), digits.rest)
         end
       else Maybe.none
       end

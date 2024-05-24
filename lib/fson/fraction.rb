@@ -9,7 +9,7 @@ module FSON
         if digits.none?
           Maybe.return Result.new(None.new, string)
         else
-          Maybe.return Result.new(Some.new(digits.value!.fetch(0)), digits.value!.fetch(1))
+          Maybe.return Result.new(Some.new(digits.value!.token), digits.value!.rest)
         end
       else
         Maybe.return Result.new(None.new, string)

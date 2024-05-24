@@ -26,7 +26,7 @@ module FSON
 
     class None < self
       def self.parse(string)
-        Maybe.return([new, string])
+        Maybe.return(Result.new(new, string))
       end
     end
   end

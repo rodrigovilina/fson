@@ -25,13 +25,14 @@ RSpec.describe FSON::Exponent do
     it 'parses an exponent' do
       e_letter = ['E', 'e'].sample
       sign = ['+', '-', ''].sample
-      sign_obj = FSON::Sign.parse(sign).value!.fetch(0)
+      sign_obj = FSON::Sign.parse(sign).value!.token
       digits = rand(1000).to_s
-      digits_obj = FSON::Digits.parse(digits).value!.fetch(0)
+      digits_obj = FSON::Digits.parse(digits).value!.token
 
       str = [e_letter, sign, digits.to_s].join
       result = described_class.parse(str)
-      expect(result).to eq(Maybe.return([FSON::Exponent.new(sign_obj, digits_obj), '']))
+      expect(result).to eq(Maybe.return(FSON::Result.new(FSON::Exponent.new(sign_obj, digits_obj), '')))
     end
   end
 end
+

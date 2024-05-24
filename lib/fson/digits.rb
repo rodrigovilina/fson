@@ -9,10 +9,10 @@ module FSON
 
       case
       when result.none? && digits.empty? then Maybe.none
-      when result.none? then Maybe.return([Digits.new(digits), string])
+      when result.none? then Maybe.return(Result.new(Digits.new(digits), string))
       else
-        digits << result.value!.fetch(0)
-        parse_digits_helper(digits, result.value!.fetch(1))
+        digits << result.value!.token
+        parse_digits_helper(digits, result.value!.rest)
       end
     end
 

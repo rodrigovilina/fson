@@ -2,7 +2,7 @@ module FSON
   class Digit
     def self.parse(string)
       case string[0]
-      when '0'..'9' then Maybe.return([Digit.new(string[0]), string[1..]])
+      when '0'..'9' then Maybe.return(Result.new(Digit.new(string[0]), string[1..]))
       else Maybe.none
       end
     end
