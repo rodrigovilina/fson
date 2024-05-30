@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_inputing_literal: true
 
 require 'sorbet-runtime'
 require 'zeitwerk'
@@ -7,45 +7,70 @@ loader.inflector.inflect 'fson' => 'FSON'
 loader.setup
 
 module FSON
+  def self.parse!(input)
+    parse_value(input)
+      .bind_none { parse_object(input) }
+      .value!.token.to_ruby
+  end
+
   def self.threequals_parser(comp, klass)
-    ->(string) {
-      case string[0]
-      when comp then Maybe.return(Result.new(klass.new, string[1..]))
+    ->(input) {
+      case input[0]
+      when comp then Maybe.return(Result.new(klass.new, input[1..]))
       else Maybe.none
       end
     }
   end
 
-  def self.parse_sign(str)
-    Sign.parse(str)
+  def self.char_parser(char)
+    raise unless char.length() == 1
+
+    ->(input) {
+      case input[0]
+      when char then Maybe.return(Result.new(char, input[1..]))
+      else Maybe.none
+      end
+    }
   end
 
-  def self.parse_one_nine(str)
-    OneNine.parse(str)
+  def self.parse_value(input)
+    Value.parse(input)
   end
 
-  def self.parse_digit(str)
-    Digit.parse(str)
+  def self.parse_object(input)
+    self::Object.parse(input)
   end
 
-  def self.parse_digits(str)
-    Digits.parse(str)
+  def self.parse_sign(input)
+    Sign.parse(input)
   end
 
-  def self.parse_exponent(str)
-    Exponent.parse(str)
+  def self.parse_one_nine(input)
+    OneNine.parse(input)
   end
 
-  def self.parse_hex(str)
-    Hex.parse(str)
+  def self.parse_digit(input)
+    Digit.parse(input)
   end
 
-  def self.parse_fraction(str)
-    Fraction.parse(str)
+  def self.parse_digits(input)
+    Digits.parse(input)
   end
 
-  def self.parse_whitespace(str)
-    Whitespace.parse(str)
+  def self.parse_exponent(input)
+    Exponent.parse(input)
+  end
+
+  def self.parse_hex(input)
+    Hex.parse(input)
+  end
+
+  def self.parse_fraction(input)
+    Fraction.parse(input)
+  end
+
+  def self.parse_whitespace(input)
+    Whitespace.parse(input)
   end
 end
 
