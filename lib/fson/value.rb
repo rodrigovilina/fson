@@ -3,9 +3,11 @@
 module FSON
   class Value
     def self.parse(input)
-      Null.parse(input)
-          .bind_none { True.parse(input) }
-          .bind_none { False.parse(input) }
+      Whitespace.parse(input).bind do |r|
+        Null.parse(r.rest) 
+          .bind_none { True.parse(r.rest) }
+          .bind_none { False.parse(r.rest) }
+      end
     end
 
     class Null < self

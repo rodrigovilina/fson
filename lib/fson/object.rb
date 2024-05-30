@@ -3,10 +3,12 @@
 module FSON
   class Object
     def self.parse(input)
-      FSON.char_parser('{').(input)
-        .bind { |r| FSON.parse_whitespace(input[1..]) }
-        .bind { |r| FSON.char_parser('}').(r.rest) }
-        .bind { |r| Maybe.return(Result.new(new, r.rest)) }
+      FSON.parse_whitespace(input).bind do |r|
+        FSON.char_parser('{').(r.rest)
+          .bind { |rr| FSON.parse_whitespace(r.rest[1..]) }
+          .bind { |rr| FSON.char_parser('}').(rr.rest) }
+          .bind { |rr| Maybe.return(Result.new(new, rr.rest)) }
+      end
     end
 
     def to_ruby

@@ -2,13 +2,31 @@
 
 module FSON
   class Whitespace
-    def self.parse(string)
-      char = string[0]
+    def self.parse(input)
+      parse_whitespaces_helper([], input)
+    end
 
-      case char
-      when "\u0020", "\u0009", "\u000A", "\u000D" then Maybe.return(Result.new(Some.new(char), string[1..]))
-      else Maybe.return(Result.new(None.new, string))
+    def self.parse_whitespaces_helper(whitespaces, input)
+      result = FSON.char_parser("\u0020").(input)
+        .bind_none { FSON.char_parser("\u0009").(input) }
+        .bind_none { FSON.char_parser("\u000A").(input) }
+        .bind_none { FSON.char_parser("\u000D").(input) }
+
+      case
+      when result.none? && whitespaces.empty?
+        Maybe.return(Result.new(None.new, input))
+      when result.none?
+        Maybe.return(Result.new(Some.new(whitespaces.join('')), input))
+      else
+        whitespaces << result.value!.token
+        parse_whitespaces_helper(whitespaces, result.value!.rest)
       end
+    end
+
+    def self.sample
+      rand(10).times.map do
+        ["", "\u0020", "\u0009", "\u000A", "\u000D"].sample
+      end.join('')
     end
 
     class Some < self
