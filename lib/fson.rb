@@ -10,6 +10,8 @@ module FSON
   def self.parse!(input)
     parse_value(input)
       .bind_none { parse_object(input) }
+      .bind_none { parse_array(input) }
+      .bind_none { parse_string(input) }
       .value!.token.to_ruby
   end
 
@@ -39,6 +41,14 @@ module FSON
 
   def self.parse_object(input)
     self::Object.parse(input)
+  end
+
+  def self.parse_array(input)
+    self::Array.parse(input)
+  end
+
+  def self.parse_string(input)
+    self::String.parse(input)
   end
 
   def self.parse_sign(input)
