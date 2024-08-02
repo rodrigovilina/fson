@@ -25,5 +25,20 @@ module FSON
     def ==(other)
       self.class == other.class && sign == other.sign && digits == other.digits
     end
+
+    class None < self
+      def initialize()
+      end
+
+      def ==(other)
+        self.class == other.class
+      end
+    end
+
+    class Some < self
+      def self.sample
+        [['e', 'E'].sample, FSON::Digits.sample].join('')
+      end
+    end
   end
 end

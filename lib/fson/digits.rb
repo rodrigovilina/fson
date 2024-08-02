@@ -18,8 +18,15 @@ module FSON
       end
     end
 
+    def self.sample
+      [
+        ('1'..'9').to_a.sample,
+        *(rand(4) + 1).times.map { ('0'..'9').to_a.sample }
+      ].join('')
+    end
+
     def initialize(digits)
-      @digits = digits.map { _1.digit.to_s }.join.to_i
+      @digits = digits.map { _1.digit.to_s }.join
     end
 
     attr_reader :digits

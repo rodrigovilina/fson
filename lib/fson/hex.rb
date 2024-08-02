@@ -10,6 +10,10 @@ module FSON
       end
     end
 
+    def self.sample
+      [*('0'..'9').to_a, *('a'..'f').to_a, *('A'..'F').to_a].sample
+    end
+
     def initialize(char)
       @char = char
     end

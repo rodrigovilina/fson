@@ -9,6 +9,10 @@ module FSON
       end
     end
 
+    def self.sample
+      ('0'..'9').to_a.sample
+    end
+
     def initialize(digit)
       @digit = digit
     end

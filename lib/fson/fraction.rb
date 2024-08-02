@@ -22,6 +22,10 @@ module FSON
       def ==(other)
         self.class == other.class
       end
+
+      def none?
+        true
+      end
     end
 
     class Some < self
@@ -29,11 +33,19 @@ module FSON
         @digits = digits
       end
 
+      def self.sample
+        ['.', FSON::Digits.sample].join('')
+      end
+
       attr_reader :digits
 
       def ==(other)
         self.class == other.class &&
           digits == other.digits
+      end
+
+      def none?
+        false
       end
     end
   end

@@ -11,3 +11,7 @@ gem 'zeitwerk', '~> 2.6'
 gem 'rubocop', '~> 1.64'
 
 gem 'rubocop-rspec', '~> 2.29'
+
+gem "byebug", "~> 11.1"
+
+gem "faker", "~> 3.4"

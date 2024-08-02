@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../lib/fson'
+require 'faker'
 
 RSpec.describe FSON do
   describe '.parse' do
@@ -51,8 +52,25 @@ RSpec.describe FSON do
       bws = described_class::Whitespace.sample
       aws = described_class::Whitespace.sample
       result = described_class.parse!("#{bws}\"\"#{aws}")
-      
-      expect(result).to eq("")
+
+      expect(result).to eq('')
+    end
+
+    it 'parses an integer' do
+      bws = described_class::Whitespace.sample
+      aws = described_class::Whitespace.sample
+      int = rand(9999).to_s
+      input = "#{bws}#{int}#{aws}"
+      result = described_class.parse!(input)
+
+      expect(result).to eq(int.to_i)
+    end
+
+    it 'parses a float number' do
+      input = Faker::Number.positive
+      result = described_class.parse!(input.to_s)
+
+      expect(result).to eq(input)
     end
   end
 end

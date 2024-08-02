@@ -19,7 +19,7 @@ RSpec.describe FSON::Escape do
     end
 
     it 'parses a backslash' do
-      string = "\\"
+      string = '\\'
       result = described_class.parse(string)
 
       expect(result).to eq(Maybe.return(FSON::Result.new(FSON::Escape::BackSlash.new, '')))
@@ -61,11 +61,11 @@ RSpec.describe FSON::Escape do
     end
 
     it 'parses a "u" plus exactly four hexes' do
+      hexes = 4.times.map { FSON::Hex.sample }.join
+      string = "u#{hexes}"
+      result = described_class.parse(string)
+
+      expect(result).to eq(Maybe.return(FSON::Result.new(FSON::Escape::U.new(hexes), '')))
     end
   end
 end
-
-# escape
- #    'r'
- #    't'
- #    'u' hex hex hex hex
